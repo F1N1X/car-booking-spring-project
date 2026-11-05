@@ -2,36 +2,59 @@ package com.car_booking.carbooking.entity.booking;
 
 import com.car_booking.carbooking.entity.car.Car;
 import com.car_booking.carbooking.entity.user.AppUser;
+import jakarta.persistence.*;
 
-import java.io.Serial;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name = "car_booking")
 public class CarBooking {
-    @Serial
-    private static final long serialVersionUID = 1L;
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "app_user_id", nullable = false)
     private AppUser user;
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", nullable = false)
     private Car car;
+
+    @Column(nullable = false)
     private LocalDate startDate;
+
+    @Column(nullable = false)
     private LocalDate endDate;
+
+    @Column(nullable = false)
     private BigDecimal price;
-    private BookingStatus status;
+
+    @Column(nullable = false)
     private LocalDateTime bookedAt;
 
-    public CarBooking(UUID id, AppUser user, Car car, LocalDate startDate, LocalDate endDate, BigDecimal price, BookingStatus status, LocalDateTime bookedAt) {
+    @Column(nullable = false)
+    private BookingStatus status;
+
+    public CarBooking(UUID id,
+                      AppUser user,
+                      Car car,
+                      LocalDate startDate,
+                      LocalDate endDate,
+                      BigDecimal price,
+                      BookingStatus status,
+                      LocalDateTime bookedAt) {
         this.id = id;
         this.user = user;
         this.car = car;
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
-        this.status = status;
         this.bookedAt = bookedAt;
     }
 
@@ -48,7 +71,10 @@ public class CarBooking {
         this.car = car;
         this.user = user;
         this.id = UUID.randomUUID();
-        this.status = status;
+    }
+
+    public CarBooking() {
+
     }
 
     public UUID getId() {

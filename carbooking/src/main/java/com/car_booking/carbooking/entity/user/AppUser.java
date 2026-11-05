@@ -1,11 +1,20 @@
 package com.car_booking.carbooking.entity.user;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.UUID;
 
+@Entity
+@Table(name = "app_user")
 public class AppUser {
 
-    private static final long serialVersionUID = 1L;
+    @Id
     private UUID id;
+
+    @Column(nullable = false)
     private String name;
 
     public AppUser(UUID id, String name) {
@@ -16,6 +25,10 @@ public class AppUser {
     public AppUser(String name) {
         this.name = name;
         id = UUID.randomUUID();
+    }
+
+    public AppUser() {
+
     }
 
     public UUID getId() {

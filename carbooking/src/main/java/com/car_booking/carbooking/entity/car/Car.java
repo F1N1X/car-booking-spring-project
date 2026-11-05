@@ -1,16 +1,33 @@
 package com.car_booking.carbooking.entity.car;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
+
+@Entity
+@Table(name = "car")
 public class Car {
 
+        @Id
+        @GeneratedValue(strategy = GenerationType.UUID)
         private UUID id;
+
+        @Column(nullable = false, unique = true)
         private String regNumber;
+
+        @Column(nullable = false)
         private BigDecimal rentalPricePerDay;
+
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false)
         private Brand brand;
+
+        @Column(nullable = false)
         private boolean isElectric;
+
 
         public Car(String regNumber,
                    BigDecimal rentalPricePerDay,
@@ -22,7 +39,11 @@ public class Car {
             this.isElectric = isElectric;
         }
 
-        public Car(UUID id, String regNumber, BigDecimal rentalPricePerDay, Brand brand, boolean isElectric) {
+        public Car(UUID id,
+                   String regNumber,
+                   BigDecimal rentalPricePerDay,
+                   Brand brand,
+                   boolean isElectric) {
             this.id = id;
             this.regNumber = regNumber;
             this.rentalPricePerDay = rentalPricePerDay;
@@ -30,7 +51,11 @@ public class Car {
             this.isElectric = isElectric;
         }
 
-        public UUID getId() {
+    public Car() {
+
+    }
+
+    public UUID getId() {
             return id;
         }
 
