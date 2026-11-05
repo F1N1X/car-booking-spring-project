@@ -1,4 +1,4 @@
-package com.car_booking.carbooking.entity.booking;
+package com.car_booking.carbooking.booking;
 
 public enum BookingStatus {
     ACTIVE,

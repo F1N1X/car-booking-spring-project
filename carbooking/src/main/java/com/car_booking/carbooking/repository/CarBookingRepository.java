@@ -1,6 +1,6 @@
 package com.car_booking.carbooking.repository;
 
-import com.car_booking.carbooking.entity.booking.CarBooking;
+import com.car_booking.carbooking.booking.CarBooking;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

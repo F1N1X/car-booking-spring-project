@@ -1,6 +1,6 @@
-package com.car_booking.carbooking.entity.booking;
+package com.car_booking.carbooking.booking;
 
-import com.car_booking.carbooking.entity.car.Car;
+import com.car_booking.carbooking.car.Car;
 import com.car_booking.carbooking.entity.user.AppUser;
 import jakarta.persistence.*;
 

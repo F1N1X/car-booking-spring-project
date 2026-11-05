@@ -1,4 +1,4 @@
-package com.car_booking.carbooking.entity.car;
+package com.car_booking.carbooking.car;
 
 import jakarta.persistence.*;
 
