@@ -1,0 +1,33 @@
+package com.car_booking.carbooking.entity.car;
+
+public enum Brand {
+    ALFA_ROMEO,
+    AUDI,
+    BENTLEY,
+    BMW,
+    BYD,
+    CHEVROLET,
+    FERRARI,
+    FIAT,
+    FORD,
+    HONDA,
+    HYUNDAI,
+    JAGUAR,
+    JEEP,
+    KIA,
+    LAMBORGHINI,
+    MASERATI,
+    MAZDA,
+    MERCEDES,
+    MINI,
+    MITSUBISHI,
+    OPEL,
+    PEUGEOT,
+    PORSCHE,
+    ROYCE_ROLLS,
+    SEAT,
+    SUBARU,
+    TESLA,
+    TOYOTA,
+    VW
+}
