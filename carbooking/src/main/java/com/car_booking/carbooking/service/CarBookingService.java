@@ -45,7 +45,7 @@ public class CarBookingService {
             throw new CarAllReadyBookedException("car is already booked");
 
 
-        BigDecimal rentalPrice = car.getRentalPricePerDay().multiply(BigDecimal.valueOf(ChronoUnit.DAYS.between(bookingPeriod.start(), bookingPeriod.end())));
+        BigDecimal rentalPrice = car.getRentalPricePerDay().multiply(BigDecimal.valueOf(bookingPeriod.days()));
 
         CarBooking newBooking = new CarBooking(
                 rentalPrice,
