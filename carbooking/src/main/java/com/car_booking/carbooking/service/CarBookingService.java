@@ -5,6 +5,7 @@ import com.car_booking.carbooking.booking.BookingStatus;
 import com.car_booking.carbooking.booking.CarBooking;
 import com.car_booking.carbooking.car.Car;
 import com.car_booking.carbooking.dto.AppUserResponse;
+import com.car_booking.carbooking.dto.CarBookingRequest;
 import com.car_booking.carbooking.dto.CarBookingResponse;
 import com.car_booking.carbooking.dto.CarResponse;
 import com.car_booking.carbooking.entity.user.AppUser;
@@ -33,15 +34,12 @@ public class CarBookingService {
         this.appUserService = appUserService;
     }
 
-    public void bookCar(UUID userId,
-                        String registerNumber,
-                        LocalDate startDate,
-                        LocalDate endDate) {
+    public void bookCar(CarBookingRequest request) {
 
-        BookingPeriod bookingPeriod = BookingPeriod.forNewBooking(startDate, endDate);
+        BookingPeriod bookingPeriod = BookingPeriod.forNewBooking(request.startDate(), request.endDate());
 
-        AppUser user = appUserService.getAppUserById(userId);
-        Car car = carService.getCarByRegistrationNumber(registerNumber);
+        AppUser user = appUserService.getAppUserById(request.userId());
+        Car car = carService.getCarById(request.carId());
 
         if (carBookingRepository.existsCarBookingByCar(car))
             throw new CarAllReadyBookedException("car with number: %s is already booked".formatted(car.getRegNumber()));
@@ -94,7 +92,8 @@ public class CarBookingService {
                         b.getPrice(),
                         b.getStatus(),
                         b.getBookedAt()
-                        )).toList();
+                        ))
+                .toList();
     }
 
     public List<CarResponse> viewAllAvailableCars() {

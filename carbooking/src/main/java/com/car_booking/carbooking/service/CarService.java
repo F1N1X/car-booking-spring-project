@@ -8,6 +8,7 @@ import com.car_booking.carbooking.repository.CarRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class CarService {
@@ -22,6 +23,11 @@ public class CarService {
     public Car getCarByRegistrationNumber(String registrationNumber) {
         return carRepository.getCarByRegistrationNumber(registrationNumber)
                 .orElseThrow( () -> new RegistrationNumberNotFoundException("car not found with registration-number: %s".formatted(registrationNumber)));
+    }
+
+    public Car getCarById(UUID id) {
+        return carRepository.findById(id)
+                .orElseThrow( () -> new RegistrationNumberNotFoundException("car not found with id: %s".formatted(id)));
     }
 
     public List<Car> getAllCars() {
