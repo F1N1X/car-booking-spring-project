@@ -31,6 +31,10 @@ public class AppUser {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
     public UUID getId() {
         return id;
     }

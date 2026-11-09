@@ -2,6 +2,7 @@ package com.car_booking.carbooking.service;
 
 import com.car_booking.carbooking.exception.InvalidBookingPeriodException;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -31,7 +32,11 @@ public record BookingPeriod(LocalDate start, LocalDate end) {
             throw new InvalidBookingPeriodException("start cant be after end date");
     }
 
-    public long days() {
+    private long calculateDaysFromStartToEnd() {
         return ChronoUnit.DAYS.between(start, end);
+    }
+
+    public BigDecimal getRentalPrice(BigDecimal carPricePerDay) {
+        return BigDecimal.valueOf(calculateDaysFromStartToEnd()).multiply(carPricePerDay);
     }
 }
