@@ -19,7 +19,6 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
-
     @GetMapping
     public ResponseEntity<List<AppUserResponse>> getAllUsers() {
         return ResponseEntity.ok().body(appUserService.getAppUsers());
