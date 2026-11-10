@@ -21,14 +21,14 @@ public class AppUserService {
 
     public AppUser getAppUserById(UUID id) {
        return appUserRepository.findById(id)
-               .orElseThrow(() -> new AppUserNotFoundException("user not found with id %s".formatted(id)));
+               .orElseThrow(() -> new NoUsersFoundException("user not found with id %s".formatted(id)));
     }
 
     public List<AppUserResponse> getAppUsers() {
         List<AppUser> allAppUsers = appUserRepository.findAll();
 
         if (allAppUsers.isEmpty()) {
-            throw new NoUsersFoundException("no user found");
+            throw new NoUsersFoundException("no users found");
         }
         return allAppUsers.stream()
                 .map(u -> new AppUserResponse(u.getId(), u.getName()))
