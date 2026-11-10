@@ -3,7 +3,7 @@ package com.car_booking.carbooking.service;
 
 import com.car_booking.carbooking.car.Car;
 import com.car_booking.carbooking.exception.NoCarsFoundException;
-import com.car_booking.carbooking.exception.RegistrationNumberNotFoundException;
+import com.car_booking.carbooking.exception.CarNotFoundException;
 import com.car_booking.carbooking.repository.CarRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,15 +19,9 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
-
-    public Car getCarByRegistrationNumber(String registrationNumber) {
-        return carRepository.getCarByRegistrationNumber(registrationNumber)
-                .orElseThrow( () -> new RegistrationNumberNotFoundException("car not found with registration-number: %s".formatted(registrationNumber)));
-    }
-
     public Car getCarById(UUID id) {
         return carRepository.findById(id)
-                .orElseThrow( () -> new RegistrationNumberNotFoundException("car not found with id: %s".formatted(id)));
+                .orElseThrow( () -> new CarNotFoundException("car not found with id: %s".formatted(id)));
     }
 
     public List<Car> getAllCars() {
