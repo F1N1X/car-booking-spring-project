@@ -16,7 +16,7 @@ public class Car {
         private UUID id;
 
         @Column(nullable = false, unique = true)
-        private String regNumber;
+        private String registrationNumber;
 
         @Column(nullable = false)
         private BigDecimal rentalPricePerDay;
@@ -29,23 +29,22 @@ public class Car {
         private boolean isElectric;
 
 
-        public Car(String regNumber,
+        public Car(String registrationNumber,
                    BigDecimal rentalPricePerDay,
                    Brand brand, boolean isElectric) {
-            this.id = UUID.randomUUID();
-            this.regNumber = regNumber;
+            this.registrationNumber = registrationNumber;
             this.rentalPricePerDay = rentalPricePerDay;
             this.brand = brand;
             this.isElectric = isElectric;
         }
 
         public Car(UUID id,
-                   String regNumber,
+                   String registrationNumber,
                    BigDecimal rentalPricePerDay,
                    Brand brand,
                    boolean isElectric) {
             this.id = id;
-            this.regNumber = regNumber;
+            this.registrationNumber = registrationNumber;
             this.rentalPricePerDay = rentalPricePerDay;
             this.brand = brand;
             this.isElectric = isElectric;
@@ -59,8 +58,8 @@ public class Car {
             return id;
         }
 
-        public String getRegNumber() {
-            return regNumber;
+        public String getRegistrationNumber() {
+            return registrationNumber;
         }
 
         public BigDecimal getRentalPricePerDay() {
@@ -91,7 +90,7 @@ public class Car {
         public String toString() {
             return "Car{" +
                     "id=" + id +
-                    ", regNumber='" + regNumber + '\'' +
+                    ", regNumber='" + registrationNumber + '\'' +
                     ", rentalPricePerDay=" + rentalPricePerDay +
                     ", brand=" + brand +
                     ", isElectric=" + isElectric +

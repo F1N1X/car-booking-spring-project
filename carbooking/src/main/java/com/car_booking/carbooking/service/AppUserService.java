@@ -19,9 +19,8 @@ public class AppUserService {
         this.appUserRepository = appUserRepository;
     }
 
-    public AppUserResponse getAppUserById(UUID id) {
+    public AppUser getAppUserById(UUID id) {
        return appUserRepository.findById(id)
-               .map(u -> new AppUserResponse(u.getId(), u.getName()))
                .orElseThrow(() -> new AppUserNotFoundException("user not found with id %s".formatted(id)));
     }
 

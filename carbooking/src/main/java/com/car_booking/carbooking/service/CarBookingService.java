@@ -15,7 +15,6 @@ import com.car_booking.carbooking.exception.NoCarBookingAvailable;
 import com.car_booking.carbooking.repository.CarBookingRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +41,7 @@ public class CarBookingService {
         Car car = carService.getCarById(request.carId());
 
         if (carBookingRepository.existsCarBookingByCar(car))
-            throw new CarAllReadyBookedException("car with number: %s is already booked".formatted(car.getRegNumber()));
+            throw new CarAllReadyBookedException("car with number: %s is already booked".formatted(car.getRegistrationNumber()));
 
         CarBooking newBooking = new CarBooking(
                 bookingPeriod.getRentalPrice(car.getRentalPricePerDay()),
@@ -85,7 +84,7 @@ public class CarBookingService {
                 .map(b -> new CarBookingResponse(
                         b.getId(),
                         b.getUser().toString(),
-                        b.getCar().getRegNumber(),
+                        b.getCar().getRegistrationNumber(),
                         b.getCar().getBrand(),
                         b.getStartDate(),
                         b.getEndDate(),
@@ -104,7 +103,7 @@ public class CarBookingService {
                 .filter(c -> !(allBookedCars.contains(c)))
                 .map(c -> new CarResponse(
                         c.getId(),
-                        c.getRegNumber(),
+                        c.getRegistrationNumber(),
                         c.getRentalPricePerDay(),
                         c.getBrand(),
                         c.isElectric()))
@@ -119,7 +118,7 @@ public class CarBookingService {
                 .filter(c -> !(allBookedCars.contains(c)) && c.isElectric())
                 .map(c -> new CarResponse(
                         c.getId(),
-                        c.getRegNumber(),
+                        c.getRegistrationNumber(),
                         c.getRentalPricePerDay(),
                         c.getBrand(),
                         c.isElectric()
