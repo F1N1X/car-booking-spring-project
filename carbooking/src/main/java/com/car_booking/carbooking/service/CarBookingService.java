@@ -11,6 +11,7 @@ import com.car_booking.carbooking.dto.CarResponse;
 import com.car_booking.carbooking.entity.user.AppUser;
 import com.car_booking.carbooking.exception.CarAllReadyBookedException;
 import com.car_booking.carbooking.exception.CarBookingNotFoundException;
+import com.car_booking.carbooking.exception.NoAvailableCarsException;
 import com.car_booking.carbooking.exception.NoCarBookingAvailable;
 import com.car_booking.carbooking.repository.CarBookingRepository;
 import org.springframework.stereotype.Service;
@@ -99,7 +100,8 @@ public class CarBookingService {
         List<Car> allBookedCars = carBookingRepository.getAllBookedCars();
         List<Car> allCars = carService.getAllCars();
 
-        return allCars.stream()
+
+        List<CarResponse> availableCars = allCars.stream()
                 .filter(c -> !(allBookedCars.contains(c)))
                 .map(c -> new CarResponse(
                         c.getId(),
@@ -108,13 +110,18 @@ public class CarBookingService {
                         c.getBrand(),
                         c.isElectric()))
                 .toList();
+
+        if (availableCars.isEmpty())
+            throw new NoAvailableCarsException("no cars available for booking");
+
+        return availableCars;
     }
 
     public List<CarResponse> viewAllAvailableElectricCars() {
         List<Car> allBookedCars = carBookingRepository.getAllBookedCars();
         List<Car> allCars = carService.getAllCars();
 
-        return allCars.stream()
+        List<CarResponse> availableElectroCars = allCars.stream()
                 .filter(c -> !(allBookedCars.contains(c)) && c.isElectric())
                 .map(c -> new CarResponse(
                         c.getId(),
@@ -123,5 +130,10 @@ public class CarBookingService {
                         c.getBrand(),
                         c.isElectric()
                 )).toList();
+
+        if (availableElectroCars.isEmpty())
+            throw new NoAvailableCarsException("no cars available for booking");
+
+        return availableElectroCars;
     }
 }

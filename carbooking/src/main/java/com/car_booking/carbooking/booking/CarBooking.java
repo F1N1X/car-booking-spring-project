@@ -70,7 +70,6 @@ public class CarBooking {
         this.startDate = startDate;
         this.car = car;
         this.user = user;
-        this.id = UUID.randomUUID();
     }
 
     public CarBooking() {
