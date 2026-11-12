@@ -38,6 +38,7 @@ public class CarBooking {
     @Column(nullable = false)
     private LocalDateTime bookedAt;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookingStatus status;
 
@@ -55,6 +56,7 @@ public class CarBooking {
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
+        this.status = status;
         this.bookedAt = bookedAt;
     }
 
@@ -70,6 +72,7 @@ public class CarBooking {
         this.startDate = startDate;
         this.car = car;
         this.user = user;
+        this.status = status;
     }
 
     public CarBooking() {
