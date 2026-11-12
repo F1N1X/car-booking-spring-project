@@ -38,17 +38,12 @@ public class CarBooking {
     @Column(nullable = false)
     private LocalDateTime bookedAt;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private BookingStatus status;
-
     public CarBooking(UUID id,
                       AppUser user,
                       Car car,
                       LocalDate startDate,
                       LocalDate endDate,
                       BigDecimal price,
-                      BookingStatus status,
                       LocalDateTime bookedAt) {
         this.id = id;
         this.user = user;
@@ -56,7 +51,6 @@ public class CarBooking {
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
-        this.status = status;
         this.bookedAt = bookedAt;
     }
 
@@ -64,15 +58,13 @@ public class CarBooking {
                       LocalDate startDate,
                       LocalDate endDate,
                       Car car,
-                      AppUser user,
-                      BookingStatus status) {
+                      AppUser user) {
         this.price = price;
         this.bookedAt = LocalDateTime.now();
         this.endDate = endDate;
         this.startDate = startDate;
         this.car = car;
         this.user = user;
-        this.status = status;
     }
 
     public CarBooking() {
@@ -105,10 +97,6 @@ public class CarBooking {
 
     public LocalDateTime getBookedAt() {
         return bookedAt;
-    }
-
-    public BookingStatus getStatus() {
-        return status;
     }
 
     @Override

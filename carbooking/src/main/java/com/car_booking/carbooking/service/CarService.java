@@ -6,11 +6,12 @@ import com.car_booking.carbooking.exception.NoCarsFoundException;
 import com.car_booking.carbooking.exception.CarNotFoundException;
 import com.car_booking.carbooking.repository.CarRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Repository
+@Service
 public class CarService {
 
     private final CarRepository carRepository;

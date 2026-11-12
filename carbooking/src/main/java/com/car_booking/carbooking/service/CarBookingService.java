@@ -1,7 +1,6 @@
 package com.car_booking.carbooking.service;
 
 
-import com.car_booking.carbooking.booking.BookingStatus;
 import com.car_booking.carbooking.booking.CarBooking;
 import com.car_booking.carbooking.car.Car;
 import com.car_booking.carbooking.dto.AppUserResponse;
@@ -49,8 +48,7 @@ public class CarBookingService {
                 bookingPeriod.start(),
                 bookingPeriod.end(),
                 car,
-                user,
-                BookingStatus.ACTIVE);
+                user);
 
         carBookingRepository.save(newBooking);
     }
@@ -84,13 +82,12 @@ public class CarBookingService {
         return allBookings.stream()
                 .map(b -> new CarBookingResponse(
                         b.getId(),
-                        b.getUser().toString(),
+                        b.getUser().getName(),
                         b.getCar().getRegistrationNumber(),
                         b.getCar().getBrand(),
                         b.getStartDate(),
                         b.getEndDate(),
                         b.getPrice(),
-                        b.getStatus(),
                         b.getBookedAt()
                         ))
                 .toList();

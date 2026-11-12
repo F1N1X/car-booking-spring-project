@@ -1,6 +1,5 @@
 package com.car_booking.carbooking.dto;
 
-import com.car_booking.carbooking.booking.BookingStatus;
 import com.car_booking.carbooking.car.Brand;
 
 import java.math.BigDecimal;
@@ -16,6 +15,5 @@ public record CarBookingResponse(
         LocalDate startDate,
         LocalDate endDate,
         BigDecimal price,
-        BookingStatus status,
         LocalDateTime bookedAt
 ) {}

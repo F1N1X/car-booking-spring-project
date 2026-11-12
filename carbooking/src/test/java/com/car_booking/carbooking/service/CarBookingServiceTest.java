@@ -1,6 +1,5 @@
 package com.car_booking.carbooking.service;
 
-import com.car_booking.carbooking.booking.BookingStatus;
 import com.car_booking.carbooking.booking.CarBooking;
 import com.car_booking.carbooking.car.Brand;
 import com.car_booking.carbooking.car.Car;
@@ -126,7 +125,6 @@ class CarBookingServiceTest {
                 LocalDate.now().plusDays(1),
                 LocalDate.now().plusDays(4),
                 new BigDecimal("267.00"),
-                BookingStatus.ACTIVE,
                 LocalDateTime.now()
         );
         when(carBookingRepository.findById(booking.getId())).thenReturn(Optional.of(booking));
@@ -195,7 +193,6 @@ class CarBookingServiceTest {
                 LocalDate.now().plusDays(1),
                 LocalDate.now().plusDays(4),
                 new BigDecimal("267.00"),
-                BookingStatus.ACTIVE,
                 LocalDateTime.now()
         );
 
@@ -206,31 +203,28 @@ class CarBookingServiceTest {
                 LocalDate.now().plusDays(2),
                 LocalDate.now().plusDays(5),
                 new BigDecimal("148.50"),
-                BookingStatus.ACTIVE,
                 LocalDateTime.now()
         );
         List<CarBooking> bookings = List.of(booking1, booking2);
         List<CarBookingResponse> expected = List.of(
                 new CarBookingResponse(
                         booking1.getId(),
-                        booking1.getUser().toString(),
+                        booking1.getUser().getName(),
                         booking1.getCar().getRegistrationNumber(),
                         booking1.getCar().getBrand(),
                         booking1.getStartDate(),
                         booking1.getEndDate(),
                         booking1.getPrice(),
-                        booking1.getStatus(),
                         booking1.getBookedAt()
                 ),
                 new CarBookingResponse(
                         booking2.getId(),
-                        booking2.getUser().toString(),
+                        booking2.getUser().getName(),
                         booking2.getCar().getRegistrationNumber(),
                         booking2.getCar().getBrand(),
                         booking2.getStartDate(),
                         booking2.getEndDate(),
                         booking2.getPrice(),
-                        booking2.getStatus(),
                         booking2.getBookedAt()
                 )
         );
