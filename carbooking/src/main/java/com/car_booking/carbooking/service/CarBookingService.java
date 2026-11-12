@@ -8,11 +8,10 @@ import com.car_booking.carbooking.dto.CarBookingRequest;
 import com.car_booking.carbooking.dto.CarBookingResponse;
 import com.car_booking.carbooking.dto.CarResponse;
 import com.car_booking.carbooking.entity.user.AppUser;
-import com.car_booking.carbooking.exception.CarAlreadyBookedException;
-import com.car_booking.carbooking.exception.CarBookingNotFoundException;
-import com.car_booking.carbooking.exception.NoAvailableCarsException;
-import com.car_booking.carbooking.exception.NoCarBookingAvailableException;
+import com.car_booking.carbooking.exception.*;
 import com.car_booking.carbooking.repository.CarBookingRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +23,7 @@ public class CarBookingService {
     private final CarService carService;
     private final CarBookingRepository carBookingRepository;
     private final AppUserService appUserService;
+    private static final Logger log = LoggerFactory.getLogger(CarBookingService.class);
 
     public CarBookingService(CarService carService,
                              CarBookingRepository carBookingRepository,
@@ -51,7 +51,9 @@ public class CarBookingService {
                 car,
                 user);
 
-        carBookingRepository.save(newBooking);
+        CarBooking savedBooking = carBookingRepository.save(newBooking);
+        log.info("Booking created: id = {}, carId = {}, userId = {}",
+                savedBooking.getId(), car.getId(), user.getId());
     }
 
     public void deleteBooking(UUID bookingId) {
@@ -59,6 +61,7 @@ public class CarBookingService {
                 .orElseThrow(() -> new CarBookingNotFoundException(
                         "booking not found with id %s".formatted(bookingId)));
         carBookingRepository.delete(carBooking);
+        log.info("Booking deleted: id = {}", bookingId);
     }
 
     public List<AppUserResponse> viewAllUsersWithBookings() {
