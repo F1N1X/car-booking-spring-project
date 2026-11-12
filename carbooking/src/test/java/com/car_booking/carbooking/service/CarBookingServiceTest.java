@@ -80,7 +80,7 @@ class CarBookingServiceTest {
                 car, request.endDate(), request.startDate())).thenReturn(true);
         // when + then
         assertThatThrownBy(() -> underTest.bookCar(request))
-                .isInstanceOf(CarAllReadyBookedException.class)
+                .isInstanceOf(CarAlreadyBookedException.class)
                 .hasMessageContaining("car with number: %s is already booked".formatted(car.getRegistrationNumber()));
         verify(carBookingRepository,
                 never()).save(any());
@@ -173,7 +173,7 @@ class CarBookingServiceTest {
         when(carBookingRepository.getAllUserBookedCars()).thenReturn(List.of());
         // when + then
         assertThatThrownBy(() -> underTest.viewAllUsersWithBookings())
-                .isInstanceOf(NoCarBookingAvailable.class)
+                .isInstanceOf(NoCarBookingAvailableException.class)
                 .hasMessageContaining("no booking available");
 
         verify(carBookingRepository).getAllUserBookedCars();
@@ -241,7 +241,7 @@ class CarBookingServiceTest {
     void viewAllBookingsNoBookingAvailableException() {
         when(carBookingRepository.findAll()).thenReturn(List.of());
         assertThatThrownBy(() -> underTest.viewAllBookings())
-                .isInstanceOf(NoCarBookingAvailable.class)
+                .isInstanceOf(NoCarBookingAvailableException.class)
                 .hasMessageContaining("no booking available");
     }
 

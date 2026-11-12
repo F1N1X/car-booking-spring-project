@@ -8,10 +8,10 @@ import com.car_booking.carbooking.dto.CarBookingRequest;
 import com.car_booking.carbooking.dto.CarBookingResponse;
 import com.car_booking.carbooking.dto.CarResponse;
 import com.car_booking.carbooking.entity.user.AppUser;
-import com.car_booking.carbooking.exception.CarAllReadyBookedException;
+import com.car_booking.carbooking.exception.CarAlreadyBookedException;
 import com.car_booking.carbooking.exception.CarBookingNotFoundException;
 import com.car_booking.carbooking.exception.NoAvailableCarsException;
-import com.car_booking.carbooking.exception.NoCarBookingAvailable;
+import com.car_booking.carbooking.exception.NoCarBookingAvailableException;
 import com.car_booking.carbooking.repository.CarBookingRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +42,7 @@ public class CarBookingService {
 
         if (carBookingRepository.existsByCarAndStartDateBeforeAndEndDateAfter(
                 car, bookingPeriod.end(), bookingPeriod.start()))
-            throw new CarAllReadyBookedException("car with number: %s is already booked".formatted(car.getRegistrationNumber()));
+            throw new CarAlreadyBookedException("car with number: %s is already booked".formatted(car.getRegistrationNumber()));
 
         CarBooking newBooking = new CarBooking(
                 bookingPeriod.getRentalPrice(car.getRentalPricePerDay()),
@@ -65,7 +65,7 @@ public class CarBookingService {
         List<AppUser> allUserBookedCars = carBookingRepository.getAllUserBookedCars();
 
         if (allUserBookedCars.isEmpty())
-            throw new NoCarBookingAvailable("no booking available");
+            throw new NoCarBookingAvailableException("no booking available");
 
         return allUserBookedCars.stream()
                 .map(u -> new AppUserResponse(
@@ -78,7 +78,7 @@ public class CarBookingService {
         List<CarBooking> allBookings = carBookingRepository.findAll();
 
         if (allBookings.isEmpty())
-            throw new NoCarBookingAvailable("no booking available");
+            throw new NoCarBookingAvailableException("no booking available");
 
         return allBookings.stream()
                 .map(b -> new CarBookingResponse(
