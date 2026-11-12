@@ -76,7 +76,8 @@ class CarBookingServiceTest {
         AppUser user = new AppUser(request.userId(), "test");
         when(appUserService.getAppUserById(request.userId())).thenReturn(user);
         when(carService.getCarById(request.carId())).thenReturn(car);
-        when(carBookingRepository.existsCarBookingByCar(car)).thenReturn(true);
+        when(carBookingRepository.existsByCarAndStartDateBeforeAndEndDateAfter(
+                car, request.endDate(), request.startDate())).thenReturn(true);
         // when + then
         assertThatThrownBy(() -> underTest.bookCar(request))
                 .isInstanceOf(CarAllReadyBookedException.class)
@@ -98,7 +99,8 @@ class CarBookingServiceTest {
         AppUser user = new AppUser(request.userId(), "test");
         when(appUserService.getAppUserById(request.userId())).thenReturn(user);
         when(carService.getCarById(request.carId())).thenReturn(car);
-        when(carBookingRepository.existsCarBookingByCar(car)).thenReturn(false);
+        when(carBookingRepository.existsByCarAndStartDateBeforeAndEndDateAfter(
+                car, request.endDate(), request.startDate())).thenReturn(false);
         // when
         underTest.bookCar(request);
         ArgumentCaptor<CarBooking> captor =

@@ -40,7 +40,8 @@ public class CarBookingService {
         AppUser user = appUserService.getAppUserById(request.userId());
         Car car = carService.getCarById(request.carId());
 
-        if (carBookingRepository.existsCarBookingByCar(car))
+        if (carBookingRepository.existsByCarAndStartDateBeforeAndEndDateAfter(
+                car, bookingPeriod.end(), bookingPeriod.start()))
             throw new CarAllReadyBookedException("car with number: %s is already booked".formatted(car.getRegistrationNumber()));
 
         CarBooking newBooking = new CarBooking(
