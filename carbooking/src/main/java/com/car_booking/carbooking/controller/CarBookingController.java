@@ -5,6 +5,8 @@ import com.car_booking.carbooking.booking.CarBooking;
 import com.car_booking.carbooking.dto.CarBookingRequest;
 import com.car_booking.carbooking.dto.CarBookingResponse;
 import com.car_booking.carbooking.service.CarBookingService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -25,7 +27,7 @@ public class CarBookingController {
 
     @PostMapping
     public ResponseEntity<Void> bookCar(
-            @RequestBody CarBookingRequest request) {
+            @Valid @RequestBody CarBookingRequest request) {
         carBookingService.bookCar(request);
         return ResponseEntity.noContent().build();
     }
@@ -37,7 +39,7 @@ public class CarBookingController {
 
     @DeleteMapping("/{bookingId}")
     public ResponseEntity<Void> deleteBookingById(
-            @PathVariable("bookingId")UUID id) {
+            @PathVariable("bookingId") UUID id) {
 
         carBookingService.deleteBooking(id);
         return ResponseEntity.noContent().build();

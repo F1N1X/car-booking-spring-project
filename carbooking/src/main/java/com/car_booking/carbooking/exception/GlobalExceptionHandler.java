@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AppUserNotFoundException.class)
     public ResponseEntity<ApiError> handleAppUserNotFound(HttpServletRequest http, AppUserNotFoundException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
@@ -26,18 +26,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CarAlreadyBookedException.class)
     public ResponseEntity<ApiError> handleCarAlreadyBookedException(HttpServletRequest http, CarAlreadyBookedException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.CONFLICT.value(),
                 LocalDateTime.now());
 
-        return ResponseEntity.badRequest().body(error);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
     @ExceptionHandler(CarBookingNotFoundException.class)
     public ResponseEntity<ApiError> handleCarBookingNotFoundException(HttpServletRequest http, CarBookingNotFoundException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
@@ -49,19 +49,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CarNotFoundException.class)
     public ResponseEntity<ApiError> handleInvalidBookingPeriod(HttpServletRequest http, CarNotFoundException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(error);
     }
 
     @ExceptionHandler(NoAvailableCarsException.class)
     public ResponseEntity<ApiError> handleInvalidBookingPeriod(HttpServletRequest http, NoAvailableCarsException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoCarBookingAvailableException.class)
     public ResponseEntity<ApiError> handleInvalidBookingPeriod(HttpServletRequest http, NoCarBookingAvailableException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoCarsFoundException.class)
     public ResponseEntity<ApiError> handleInvalidBookingPeriod(HttpServletRequest http, NoCarsFoundException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
@@ -97,12 +97,23 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoUsersFoundException.class)
     public ResponseEntity<ApiError> handleInvalidBookingPeriod(HttpServletRequest http, NoUsersFoundException exception) {
         ApiError error = new ApiError(
-                http.getContextPath(),
+                http.getRequestURI(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(error);
+    }
+
+    @ExceptionHandler(InvalidBookingPeriodException.class)
+    public ResponseEntity<ApiError> handleInvalidBookingPeriod(HttpServletRequest http, InvalidBookingPeriodException exception) {
+        ApiError error = new ApiError(
+                http.getRequestURI(),
+                exception.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
