@@ -101,6 +101,8 @@ class CarBookingServiceTest {
         when(carService.getCarById(request.carId())).thenReturn(car);
         when(carBookingRepository.existsByCarAndStartDateBeforeAndEndDateAfter(
                 car, request.endDate(), request.startDate())).thenReturn(false);
+        when(carBookingRepository.save(any(CarBooking.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
         // when
         underTest.bookCar(request);
         ArgumentCaptor<CarBooking> captor =
