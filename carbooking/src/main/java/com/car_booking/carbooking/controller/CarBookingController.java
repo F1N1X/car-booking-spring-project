@@ -6,10 +6,8 @@ import com.car_booking.carbooking.dto.CarBookingRequest;
 import com.car_booking.carbooking.dto.CarBookingResponse;
 import com.car_booking.carbooking.service.CarBookingService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
